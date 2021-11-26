@@ -11,11 +11,6 @@ import java.util.ArrayList;
 public class JoinArrayList implements InnerJoin<ArrayList<Line>> {
 
     @Override
-    public void innerJoin(ArrayList<Line> first, ArrayList<Line> second) {
-        join(first, second, "src/main/resources/arrayList.txt");
-    }
-
-    @Override
     public void innerJoin(ArrayList<Line> first, ArrayList<Line> second, String path) {
         join(first, second, path);
     }

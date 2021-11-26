@@ -8,16 +8,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 
 public class JoinHashMap implements InnerJoin<HashMap<Long, ArrayList<Line>>> {
-
-    @Override
-    public void innerJoin(HashMap<Long, ArrayList<Line>> first,
-                          HashMap<Long, ArrayList<Line>> second) {
-        join(first, second, "src/main/resources/hashMap.txt");
-    }
 
     @Override
     public void innerJoin(HashMap<Long, ArrayList<Line>> first,

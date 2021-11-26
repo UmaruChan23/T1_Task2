@@ -12,10 +12,6 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 
 public class JoinLinkedList implements InnerJoin<LinkedList<Line>>{
-    @Override
-    public void innerJoin(LinkedList<Line> first, LinkedList<Line> second) {
-        join(first, second, "src/main/resources/linkedList.txt");
-    }
 
     @Override
     public void innerJoin(LinkedList<Line> first, LinkedList<Line> second, String path) {
