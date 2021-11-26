@@ -1,6 +1,6 @@
 package entity;
 
-public class Line {
+public class Line implements Comparable<Line> {
     private long id;
     private String value;
 
@@ -31,5 +31,15 @@ public class Line {
                 "id=" + id +
                 ", value='" + value + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Line o) {
+        if (id > o.getId()) {
+            return 1;
+        } else if (id < o.getId()) {
+            return -1;
+        }
+        return 0;
     }
 }

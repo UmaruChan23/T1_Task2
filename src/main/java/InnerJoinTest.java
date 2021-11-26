@@ -6,6 +6,7 @@ import sql.JoinHashMap;
 import sql.JoinLinkedList;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -51,6 +52,9 @@ public class InnerJoinTest {
 
         LinkedList<Line> linkedFirst = new LinkedList<>(first);
         LinkedList<Line> linkedSecond = new LinkedList<>(second);
+
+        Collections.sort(linkedFirst);
+        Collections.sort(linkedSecond);
 
         innerJoin(new JoinLinkedList(), linkedFirst, linkedSecond, linkedListPath);
 
