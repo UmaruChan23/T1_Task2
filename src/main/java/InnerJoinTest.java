@@ -8,16 +8,20 @@ import sql.JoinLinkedList;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 
-public class Test {
+public class InnerJoinTest {
     public static void main(String[] args) {
         LoadTable loader = new LoadTable();
-        String pathA = "C:\\Users\\fmatorin\\IdeaProjects\\T1_Task2\\src\\main\\resources\\A.txt";
-        String pathB = "C:\\Users\\fmatorin\\IdeaProjects\\T1_Task2\\src\\main\\resources\\B.txt";
+        ArrayList<Line> first;
+        ArrayList<Line> second;
 
-        ArrayList<Line> first = loader.loadDataFromFile(pathA);
-        ArrayList<Line> second = loader.loadDataFromFile(pathB);
+        try {
+            first = loader.loadDataFromFile(args[0]);
+            second = loader.loadDataFromFile(args[1]);
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            System.out.println("Введите пути к двум исходным файлам");
+            return;
+        }
 
         innerJoin(new JoinArrayList(), first, second);
 
