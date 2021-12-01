@@ -19,10 +19,10 @@ public class InnerJoinTest {
         String linkedListPath = "src/main/resources/linkedList.txt";
         String hashMapPath = "src/main/resources/hashMapList.txt";
 
-        try {
+        if (args.length >= 2) {
             first = loader.loadDataFromFile(args[0]);
             second = loader.loadDataFromFile(args[1]);
-        } catch (ArrayIndexOutOfBoundsException ex) {
+        } else{
             System.out.println("Введите пути к двум исходным файлам");
             return;
         }
@@ -72,6 +72,7 @@ public class InnerJoinTest {
     }
 
     private static HashMap<Long, ArrayList<Line>> fillMap(ArrayList<Line> list) {
+        //больше стримов
         HashMap<Long, ArrayList<Line>> result = new HashMap<>();
         list.forEach(it -> result.putIfAbsent(it.getId(), new ArrayList<>()));
         list.forEach(it -> result.get(it.getId()).add(it));

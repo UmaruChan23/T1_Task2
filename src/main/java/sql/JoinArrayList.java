@@ -16,15 +16,20 @@ public class JoinArrayList implements InnerJoin<ArrayList<Line>> {
     }
 
     private void join(ArrayList<Line> first, ArrayList<Line> second, String path) {
-        first.forEach(it ->
-                second.forEach(element -> {
-                    if (it.getId() == element.getId()) {
-                        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path, true))) {
-                            writer.append((new FinalLine(it, element)).toString());
-                        } catch (IOException e) {
-                            System.out.println("Не удалось провести запись в файл");
-                        }
-                    }
-                }));
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path, true))) {
+            first
+                    .forEach(it -> second.parallelStream()
+                            .filter(sec -> sec.getId() == it.getId())
+                            .map(e -> new FinalLine(it, e).toString())
+                            .forEach(line -> {
+                                try {
+                                    writer.write(line);
+                                } catch (IOException ex) {
+                                    System.out.println("Не удалось провести запись в файл");
+                                }
+                            }));
+        } catch (IOException e) {
+            System.out.println("Не удалось провести запись в файл");
+        }
     }
 }

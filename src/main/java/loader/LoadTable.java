@@ -21,9 +21,9 @@ public class LoadTable {
 
     private Line createLine(String line) {
         String[] splitLine = line.split(",");
-        long id = 0;
+        int id = 0;
         try {
-            id = Long.parseLong(splitLine[0]);
+            id = Integer.parseInt(splitLine[0]);
             if (id < 0) throw new NumberFormatException();
         } catch (NumberFormatException ex) {
             System.out.println("Некорректный id " + splitLine[0]);
