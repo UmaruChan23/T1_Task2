@@ -5,6 +5,8 @@ import sql.JoinArrayList;
 import sql.JoinHashMap;
 import sql.JoinLinkedList;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -66,7 +68,11 @@ public class InnerJoinTest {
 
     public static <T> void innerJoin (InnerJoin<T> list, T first, T second, String path) {
         long begin = System.nanoTime();
-        list.innerJoin(first, second, path);
+        try (var fos = new FileOutputStream(path, true)) {
+            list.innerJoin(first, second, fos);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         long end = System.nanoTime();
         System.out.println(list.getClass() + " Время в нанесекундах: " + (end-begin));
     }

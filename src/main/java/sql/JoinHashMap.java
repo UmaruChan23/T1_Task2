@@ -3,9 +3,7 @@ package sql;
 import entity.FinalLine;
 import entity.Line;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,14 +13,14 @@ public class JoinHashMap implements InnerJoin<HashMap<Long, ArrayList<Line>>> {
     @Override
     public void innerJoin(HashMap<Long, ArrayList<Line>> first,
                           HashMap<Long, ArrayList<Line>> second,
-                          String path) {
-        join(first, second, path);
+                          OutputStream outputStream) {
+        join(first, second, outputStream);
     }
 
     private void join(HashMap<Long, ArrayList<Line>> first,
                       HashMap<Long, ArrayList<Line>> second,
-                      String path) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path, true))) {
+                      OutputStream outputStream) {
+        try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream))) {
             for (Map.Entry<Long, ArrayList<Line>> entry : first.entrySet()) {
                 long id = entry.getKey();
                 if (second.containsKey(id)) {

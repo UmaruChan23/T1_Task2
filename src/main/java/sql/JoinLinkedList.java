@@ -3,26 +3,24 @@ package sql;
 import entity.FinalLine;
 import entity.Line;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
 public class JoinLinkedList implements InnerJoin<LinkedList<Line>> {
 
     @Override
-    public void innerJoin(LinkedList<Line> first, LinkedList<Line> second, String path) {
-        join(first, second, path);
+    public void innerJoin(LinkedList<Line> first, LinkedList<Line> second, OutputStream outputStream) {
+        join(first, second, outputStream);
     }
 
-    public void join(LinkedList<Line> firstList, LinkedList<Line> secondList, String path) {
+    public void join(LinkedList<Line> firstList, LinkedList<Line> secondList, OutputStream outputStream) {
         ListIterator<Line> iteratorSecond = secondList.listIterator();
         ListIterator<Line> iteratorFirst = firstList.listIterator();
         int stepBack = 1;
         Line secondListLine;
         Line firstListLine;
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path, true))) {
+        try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream))) {
             while (iteratorFirst.hasNext()) {
                 firstListLine = iteratorFirst.next();
                 while (iteratorSecond.hasNext()) {

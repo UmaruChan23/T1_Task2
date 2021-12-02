@@ -3,20 +3,18 @@ package sql;
 import entity.FinalLine;
 import entity.Line;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 public class JoinArrayList implements InnerJoin<ArrayList<Line>> {
 
     @Override
-    public void innerJoin(ArrayList<Line> first, ArrayList<Line> second, String path) {
-        join(first, second, path);
+    public void innerJoin(ArrayList<Line> first, ArrayList<Line> second, OutputStream outputStream) {
+        join(first, second, outputStream);
     }
 
-    private void join(ArrayList<Line> first, ArrayList<Line> second, String path) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path, true))) {
+    private void join(ArrayList<Line> first, ArrayList<Line> second, OutputStream outputStream) {
+        try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream))) {
             first.parallelStream()
                     .flatMap(v1 -> second.parallelStream()
                             .filter(v2 -> v2.getId() == v1.getId())
