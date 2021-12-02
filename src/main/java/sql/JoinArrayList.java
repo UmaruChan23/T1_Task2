@@ -18,11 +18,9 @@ public class JoinArrayList implements InnerJoin<ArrayList<Line>> {
     private void join(ArrayList<Line> first, ArrayList<Line> second, String path) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(path, true))) {
             first.parallelStream()
-                    .flatMap(v1 -> second.parallelStream()
+                    .flatMap(v1 -> second.stream()
                             .filter(v2 -> v2.getId() == v1.getId())
-                            .map(v2 -> new FinalLine(v1, v2))
-                            .sequential())
-                    .sequential()
+                            .map(v2 -> new FinalLine(v1, v2)))
                     .forEach(line -> {
                         try {
                             writer.write(line.toString());
