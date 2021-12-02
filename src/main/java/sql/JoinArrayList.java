@@ -11,11 +11,9 @@ public class JoinArrayList extends AbstractJoinArrayList {
     protected void join(ArrayList<Line> first, ArrayList<Line> second, OutputStream outputStream) {
         try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream))) {
             first.parallelStream()
-                    .flatMap(v1 -> second.parallelStream()
+                    .flatMap(v1 -> second.stream()
                             .filter(v2 -> v2.getId() == v1.getId())
-                            .map(v2 -> new FinalLine(v1, v2))
-                            .sequential())
-                    .sequential()
+                            .map(v2 -> new FinalLine(v1, v2)))
                     .forEach(line -> {
                         try {
                             writer.write(line.toString());
