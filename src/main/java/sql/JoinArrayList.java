@@ -6,14 +6,9 @@ import entity.Line;
 import java.io.*;
 import java.util.ArrayList;
 
-public class JoinArrayList implements InnerJoin<ArrayList<Line>> {
-
+public class JoinArrayList extends AbstractJoinArrayList {
     @Override
-    public void innerJoin(ArrayList<Line> first, ArrayList<Line> second, OutputStream outputStream) {
-        join(first, second, outputStream);
-    }
-
-    private void join(ArrayList<Line> first, ArrayList<Line> second, OutputStream outputStream) {
+    protected void join(ArrayList<Line> first, ArrayList<Line> second, OutputStream outputStream) {
         try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream))) {
             first.parallelStream()
                     .flatMap(v1 -> second.parallelStream()
